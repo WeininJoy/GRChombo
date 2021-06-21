@@ -12,7 +12,7 @@ plot_prefix = /cosma6/data/dp174/dc-cui1/Boost/OscillatonKVplt
 # NB - if you have a non-cubic grid, you can specify 'N1' or 'N1_full', 
 # 'N2' or 'N2_full' and 'N3' or 'N3_full' ( then dx_coarsest = L/N(max) )
 # NB - the N values need to be multiples of the block_factor
-N_full = 64
+N_full = 128
 L_full = 128
 
 # Regridding - in this example use a fixed grid
@@ -27,7 +27,7 @@ regrid_threshold = 0.05
 
 # Level data
 # Maximum number of times you can regrid above coarsest level
-max_level = 6 # There are (max_level+1) grids, so min is zero
+max_level = 4 # There are (max_level+1) grids, so min is zero
 # Max and min box size - for load balancing
 max_box_size = 16
 min_box_size = 16
@@ -40,7 +40,7 @@ isPeriodic = 0 0 0
 # 3 = extrapolating, 4 = mixed
 # (see BoundaryConditions.hpp for details)
 hi_boundary = 1 1 1
-lo_boundary = 1 1 1
+lo_boundary = 2 2 2
 
 # if reflective boundaries selected, must set
 # parity of all vars (in order given by UserVariables.hpp)
@@ -73,8 +73,8 @@ checkpoint_interval = 500
 plot_interval = 10
 num_plot_vars = 6
 plot_vars = rho1 rho2 flux1 flux2 source1 source2
-dt_multiplier = 0.01
-stop_time = 100.0
+dt_multiplier = 0.02
+stop_time = 82.0
 
 #Lapse evolution
 lapse_power = 1.0

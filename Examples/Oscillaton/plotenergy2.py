@@ -42,8 +42,8 @@ plt.plot(timedata, Sourcedt, '--', lw = 1.0, label="Source dt")
 #plt.plot(timedata, FEodt + Source, '--', lw = 1.0, label="check M-M0")
 
 # make the plot look nice
-plt.xlabel("time")
-plt.ylabel("Change in Oscillaton Mass")
+plt.xlabel("simulation time")
+plt.ylabel("Change in Oscillaton Matter Energy")
 #plt.xlim(0, 100)
 #plt.ylim(-10, 10)
 plt.legend(loc=0)
