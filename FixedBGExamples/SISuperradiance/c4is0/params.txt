@@ -22,9 +22,9 @@ plot_vars = gauss rho
 
 # subpaths - specific directories for hdf5, pout, extraction data
 # (these are created at runtime)
-hdf5_subpath = "hdf5"
-pout_subpath = "pout"
-data_subpath = "data"
+hdf5_subpath = "/home/dc-cui1/rds/rds-dirac-tc011-4gbsIcBCdrw/hdf5"
+pout_subpath = "/home/dc-cui1/rds/rds-dirac-tc011-4gbsIcBCdrw/pout"
+data_subpath = "/home/dc-cui1/rds/rds-dirac-tc011-4gbsIcBCdrw/data"
 
 # change the name of output files
 # pout_prefix = "pout"
@@ -56,7 +56,7 @@ bh_spin = 0.99
 # NB - if you have a non-cubic grid, you can specify 'N1' or 'N1_full',
 # 'N2' or 'N2_full' and 'N3' or 'N3_full' ( then dx_coarsest = L/N(max) )
 # NB - the N values need to be multiples of the block_factor
-N_full = 160
+N_full = 240
 L_full = 384
 
 # Maximum number of times you can regrid above coarsest level
@@ -91,7 +91,7 @@ isPeriodic = 0 0 0
 # 3 = extrapolating, 4 = mixed
 # (see BoundaryConditions.hpp for details)
 hi_boundary = 1 1 1
-lo_boundary = 1 1 2
+lo_boundary = 1 1 1
 
 # if reflective boundaries selected, must set
 # parity of all vars (in order given by UserVariables.hpp)
