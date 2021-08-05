@@ -146,14 +146,6 @@ class GRAMRLevel : public AMRLevel, public InterpSource
     virtual void computeTaggingCriterion(FArrayBox &tagging_criterion,
                                          const FArrayBox &current_state) = 0;
 
-    /// Computes which cells have insufficient resolution and should be tagged
-    /// using a diagnostics criterion
-    virtual void computeDiagnosticsTaggingCriterion(
-        FArrayBox &tagging_criterion,
-        const FArrayBox &current_state_diagnostics)
-    {
-    }
-
 #ifdef CH_USE_HDF5
     /// Things to do immediately before checkpointing
     virtual void preCheckpointLevel() {}
@@ -213,6 +205,8 @@ class GRAMRLevel : public AMRLevel, public InterpSource
     /// This function is used to define the exchange copiers required for
     /// copying ghost cells between boxes
     virtual void defineExchangeCopier(const DisjointBoxLayout &a_level_domain);
+
+    void printProgress(const std::string &from) const;
 
     BoundaryConditions m_boundaries; // the class for implementing BCs
 
