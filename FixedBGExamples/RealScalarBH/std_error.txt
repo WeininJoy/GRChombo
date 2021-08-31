@@ -1,0 +1,115 @@
++ '[' -z '' ']'
++ case "$-" in
++ __lmod_vx=x
++ '[' -n x ']'
++ set +x
+Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for this output (/p/software/juwels/lmod/8.4.1/init/bash)
+Shell debugging restarted
++ unset __lmod_vx
++ export OMP_NUM_THREADS=4
++ OMP_NUM_THREADS=4
++ srun Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex params.txt
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+srun: error: jwc00n005: tasks 12-23: Exited with exit code 127
+srun: error: jwc00n021: tasks 36-47: Exited with exit code 127
+srun: error: jwc00n023: tasks 60-71: Exited with exit code 127
+srun: error: jwc00n024: tasks 72-83: Exited with exit code 127
+srun: error: jwc00n025: tasks 84-95: Exited with exit code 127
+srun: error: jwc00n020: tasks 24-35: Exited with exit code 127
+srun: error: jwc00n022: tasks 48-59: Exited with exit code 127
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex: error while loading shared libraries: libhdf5.so.103: cannot open shared object file: No such file or directory
+srun: error: jwc00n004: tasks 0-11: Exited with exit code 127

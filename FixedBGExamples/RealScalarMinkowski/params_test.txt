@@ -1,8 +1,8 @@
 #Params for runtime inputs
 
 verbosity = 0
-chk_prefix = FixedBoostLL_chk
-plot_prefix = FixedBoostLL_plt
+chk_prefix = /home/dc-cui1/rds/rds-dirac-dp131/dc-cui1/Integrals/FixedBoostLL_chk
+plot_prefix = /home/dc-cui1/rds/rds-dirac-dp131/dc-cui1/Integrals/FixedBoostLL_plt
 #restart_file = /home/dc-cui1/rds/rds-dirac-dp131/dc-cui1/Boost/Dina_chk001500.3d.hdf5
 
 # Set up grid spacings and regrid params
@@ -35,14 +35,14 @@ tag_buffer_size = 0
 
 #boundaries and periodicity of grid
 #Periodic directions - 0 = false, 1 = true
-isPeriodic = 0 0 0
+isPeriodic = 0 0 1
 
 # if not periodic, then specify the boundary type
 # 0 = static, 1 = sommerfeld, 2 = reflective, 3 = extrapolating
 # 4 = mixed, 5 = fudge
 # (see BoundaryConditions.hpp for details)
-hi_boundary = 3 3 3
-lo_boundary = 3 2 2
+hi_boundary = 0 0 0 
+lo_boundary = 0 0 0 
 #center = 512.0 512.0 0.0
 
 # if reflective boundaries selected, must select 
@@ -60,8 +60,8 @@ nonzero_asymptotic_values = 1.0
 
 # if mixed boundaries selected, must specify which are extrapolating
 # (the rest are assumed to be all sommerfeld)
-#num_extrapolating_vars = 2
-#extrapolating_vars = phi Pi
+num_extrapolating_vars = 2
+extrapolating_vars = phi Pi
 extrapolation_order = 0
 
 # Set up time steps
@@ -85,10 +85,10 @@ field_amplitude_im = 0.1
 f_axion = 0.0
 
 # Boosted BH initial data, boost in x direction
-bh_mass = 1.0
-bh_velocity = 0.5
-inner_r = 4.0
-outer_r = 200.0
+#bh_mass = 1.0
+#bh_velocity = 0.5
+#inner_r = 4.0
+#outer_r = 200.0
 
 # for extraction
 activate_extraction = 1

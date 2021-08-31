@@ -1,8 +1,8 @@
 #Params for runtime inputs
 
 verbosity = 0
-chk_prefix = FixedBoostLL_chk
-plot_prefix = FixedBoostLL_plt
+chk_prefix = /home/dc-cui1/rds/rds-dirac-dp131/dc-cui1/Integrals/FixedBoostLL_chk
+plot_prefix = /home/dc-cui1/rds/rds-dirac-dp131/dc-cui1/Integrals/FixedBoostLL_plt
 #restart_file = /home/dc-cui1/rds/rds-dirac-dp131/dc-cui1/Boost/Dina_chk001500.3d.hdf5
 
 # Set up grid spacings and regrid params
