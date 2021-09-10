@@ -24,6 +24,7 @@
 #include "FixedBGScalarField.hpp"
 #include "InitialConditions.hpp"
 #include "ScalarPotential.hpp"
+#include "RealScalarCirculation.hpp"
 
 // Things to do at each advance step, after the RK4 is calculated
 void ScalarFieldLevel::specificAdvance()
@@ -76,6 +77,9 @@ void ScalarFieldLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
     BoostedIsotropicBHFixedBG boosted_bh(m_p.bg_params, m_dx);
     FixedBGEvolution<ScalarFieldWithPotential, BoostedIsotropicBHFixedBG>
         my_matter(scalar_field, boosted_bh, m_p.sigma, m_dx, m_p.center);
+    RealScalarCirculation<ScalarFieldWithPotential, BoostedIsotropicBHFixedBG>
+        circulation(scalar_field, boosted_bh, m_dx, m_p.center);  //Calculate circulation
+
     BoxLoops::loop(my_matter, a_soln, a_rhs, SKIP_GHOST_CELLS);
 
     // excise within horizon, no simd

@@ -81,6 +81,7 @@ sigma = 0.5
 scalar_mass = 0.05
 field_amplitude_re = 0.1
 field_amplitude_im = 0.1
+field_amplitude = 0.1
 # not used
 f_axion = 0.0
 

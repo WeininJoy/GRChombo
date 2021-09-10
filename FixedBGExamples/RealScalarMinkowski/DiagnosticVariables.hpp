@@ -11,6 +11,9 @@ enum
 {
     c_chi, // the conformal factor of the metric, not evolved
     c_rho, // the energy density of the SF
+    //c_cir_x,  //circulation (x direction)
+    //c_cir_y,  //circulation (y direction)
+    //c_cir_z,  //circulation (z direction)
 
     NUM_DIAGNOSTIC_VARS
 };

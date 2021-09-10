@@ -11,10 +11,10 @@ Shell debugging restarted
 + srun Main_BinaryBH3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex params.txt
 srun: Job step aborted: Waiting up to 6 seconds for job step to finish.
 srun: error: jwc00n023: tasks 84-95: Terminated
-srun: error: jwc00n019: tasks 36-47: Terminated
 srun: error: jwc00n020: tasks 48-59: Terminated
-srun: error: jwc00n021: tasks 60-71: Terminated
-srun: error: jwc00n017: tasks 12-23: Terminated
+srun: error: jwc00n019: tasks 36-47: Terminated
 srun: error: jwc00n022: tasks 72-83: Terminated
+srun: error: jwc00n021: tasks 60-71: Terminated
 srun: error: jwc00n018: tasks 24-35: Terminated
+srun: error: jwc00n017: tasks 12-23: Terminated
 srun: error: jwc00n016: tasks 0-11: Terminated

@@ -14,6 +14,7 @@
 #include "UserVariables.hpp" //This files needs NUM_VARS - total no. components
 #include "VarsTools.hpp"
 #include "simd.hpp"
+#include <cmath>
 
 //! Class which creates the initial conditions
 
@@ -54,9 +55,15 @@ template <class background_t> class InitialConditions
         m_background.compute_metric_background(metric_vars, current_cell);
         const data_t det_gamma =
             TensorAlgebra::compute_determinant_sym(metric_vars.gamma);
+        
+	const double v = 0.1;
 
-        data_t phi = m_amplitude * 2.0 * x * exp(-r * r);
-        data_t Pi = m_amplitude * m_omega * 2.0 * y * exp(-r * r);
+	data_t phi = m_amplitude * 2.0 * x ;
+	data_t Pi = m_amplitude * 2.0 *  m_omega  * y ;
+	//data_t phi = m_amplitude * 2.0 * ( x/sqrt(1.0-v*v)*cos(m_omega*x*v/sqrt(1.0-v*v)) + y*sin(m_omega*x*v/sqrt(1.0-v*v)) );
+	//data_t Pi = m_amplitude * 2.0 * ( (v/sqrt(1.0-v*v)+m_omega*y/sqrt(1.0-v*v) )*cos(m_omega*x*v/sqrt(1.0-v*v)) - (m_omega*x/(1.0-v*v))*sin(m_omega*x*v/sqrt(1.0-v*v)) );
+        //data_t phi = m_amplitude * 2.0 * ( x/sqrt(1-v*v) * cos(m_omega*x*v/sqrt(1-v*v)) +y* sin(m_omega*x*v/sqrt(1-v*v)) ) * exp(-( pow(x/sqrt(1-v*v),2)+ y*y ));
+        //data_t Pi = m_amplitude * 2.0 * ( (v/sqrt(1-v*v)- 2*v*x*x/pow(1-v*v, 3.0/2.0) +y*m_omega/sqrt(1-v*v))*cos(m_omega*x*v/sqrt(1-v*v)) - (y*v +m_omega)*x/(1-v*v)*sin(m_omega*x*v/sqrt(1-v*v)) )* exp(-( pow(x/sqrt(1-v*v),2) +y*y));
 
         // Store the initial values of the variables
         current_cell.store_vars(phi, c_phi);
