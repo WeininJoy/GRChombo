@@ -25,6 +25,7 @@
 #include "InitialConditions.hpp"
 #include "ScalarPotential.hpp"
 #include "RealScalarCirculation.hpp"
+#include "CirculationExtraction.hpp"
 
 // Things to do at each advance step, after the RK4 is calculated
 void ScalarFieldLevel::specificAdvance()
@@ -63,7 +64,16 @@ void ScalarFieldLevel::initialData()
 }
 
 // Things to do before outputting a plot file
-void ScalarFieldLevel::prePlotLevel() {}
+void ScalarFieldLevel::prePlotLevel() {
+
+    ScalarPotential potential(m_p.potential_params);
+    ScalarFieldWithPotential scalar_field(potential);
+    BoostedIsotropicBHFixedBG boosted_bh(m_p.bg_params, m_dx);
+    RealScalarCirculation<ScalarFieldWithPotential, BoostedIsotropicBHFixedBG>
+        circulation(scalar_field, boosted_bh, potential, m_dx, m_p.center);  //Calculate circulation
+
+    BoxLoops::loop(circulation, m_state_new, m_state_diagnostics, SKIP_GHOST_CELLS); //pass m_state_diagnostics as the output to have the circ vars as diagnostic vars 
+}
 
 // Things to do in RHS update, at each RK4 step
 void ScalarFieldLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
@@ -77,8 +87,6 @@ void ScalarFieldLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
     BoostedIsotropicBHFixedBG boosted_bh(m_p.bg_params, m_dx);
     FixedBGEvolution<ScalarFieldWithPotential, BoostedIsotropicBHFixedBG>
         my_matter(scalar_field, boosted_bh, m_p.sigma, m_dx, m_p.center);
-    RealScalarCirculation<ScalarFieldWithPotential, BoostedIsotropicBHFixedBG>
-        circulation(scalar_field, boosted_bh, m_dx, m_p.center);  //Calculate circulation
 
     BoxLoops::loop(my_matter, a_soln, a_rhs, SKIP_GHOST_CELLS);
 
@@ -134,6 +142,23 @@ void ScalarFieldLevel::specificPostTimeStep()
             integral_file.write_header_line({"rho"});
         }
         integral_file.write_time_data_line(data_for_writing);
+
+        // set up an interpolator
+        // pass the boundary params so that we can use symmetries if
+        // applicable
+        AMRInterpolator<Lagrange<4>> interpolator(
+            m_gr_amr, m_p.origin, m_p.dx, m_p.boundary_params,
+            m_p.verbosity);
+
+        // this should fill all ghosts including the boundary ones according
+        // to the conditions set in params.txt
+        interpolator.refresh();
+
+        // set up the query and execute it
+        int num_points = 1000;
+        CirculationExtraction extraction(c_cir, num_points, m_p.L, m_p.center,
+                                        m_dt, m_time);
+        extraction.execute_query(&interpolator, "outputs_1000");
     }
 }
 

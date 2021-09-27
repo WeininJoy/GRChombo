@@ -16,6 +16,7 @@
 #include "UserVariables.hpp" //This files needs NUM_VARS - total number of components
 #include "VarsTools.hpp"
 #include "simd.hpp"
+#include "ScalarPotential.hpp"
 
 //! Calculates the circulation: S_i/sqrt(rho+S) with type matter_t and writes it to the grid
 template <class matter_t, class background_t> class RealScalarCirculation
@@ -33,12 +34,13 @@ template <class matter_t, class background_t> class RealScalarCirculation
     const matter_t m_matter;         //!< The matter object
     const double m_dx;               //!< The matter object
     const background_t m_background; //!< The matter object
+    const ScalarPotential m_potential;        //!< The params object
     const std::array<double, CH_SPACEDIM> m_center;
 
   public:
-    RealScalarCirculation(matter_t a_matter, background_t a_background, double a_dx,
-                   std::array<double, CH_SPACEDIM> a_center)
-        : m_matter(a_matter), m_deriv(a_dx), m_dx(a_dx),
+    RealScalarCirculation(matter_t a_matter, background_t a_background, ScalarPotential a_potential, const double a_dx,
+                   const std::array<double, CH_SPACEDIM> a_center)
+        : m_matter(a_matter), m_potential(a_potential), m_deriv(a_dx), m_dx(a_dx),
           m_background(a_background), m_center(a_center)
     {
     }
@@ -49,6 +51,7 @@ template <class matter_t, class background_t> class RealScalarCirculation
         // derivs
         const auto vars = current_cell.template load_vars<MatterVars>();
         const auto d1 = m_deriv.template diff1<MatterVars>(current_cell);
+	Coordinates<data_t> coords(current_cell, m_dx, m_center);
 
         // get the metric vars
         MetricVars<data_t> metric_vars;
@@ -61,11 +64,12 @@ template <class matter_t, class background_t> class RealScalarCirculation
         const emtensor_t<data_t> emtensor = m_matter.compute_emtensor(
             vars, metric_vars, d1, gamma_UU, chris_phys.ULL);
 
-        
+        data_t V_of_phi;
+        data_t dVdphi;
+	m_potential.compute_potential(V_of_phi, dVdphi, vars);
+
         // assign values of density in output box
-        current_cell.store_vars( emtensor.Si[0]/sqrt(emtensor.rho + emtensor.S) , c_cir_x);
-        current_cell.store_vars( emtensor.Si[1]/sqrt(emtensor.rho + emtensor.S) , c_cir_y);
-        current_cell.store_vars( emtensor.Si[2]/sqrt(emtensor.rho + emtensor.S) , c_cir_z);
+        current_cell.store_vars( (-emtensor.Si[0]*coords.y + emtensor.Si[1]*coords.x ) / ( 0.5* (emtensor.S + emtensor.rho) - 2.0* V_of_phi ) , c_cir);
     }
 };
 

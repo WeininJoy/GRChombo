@@ -58,6 +58,8 @@ template <class background_t> class InitialConditions
         
 	const double v = 0.1;
 
+	//data_t phi = m_amplitude * 2.0 * exp(- (pow(x/sqrt(1-v*v),2) + y*y) ) * cos(m_omega*x*v/sqrt(1-v*v));
+	//data_t Pi = m_amplitude * 2.0 * (- 2*x*v/sqrt(1-v*v)*cos(m_omega*x*v/sqrt(1-v*v)) - m_omega/sqrt(1-v*v)*sin(m_omega*x*v/sqrt(1-v*v))) * exp(- (pow(x/sqrt(1-v*v),2)+ y*y) );
 	data_t phi = m_amplitude * 2.0 * x ;
 	data_t Pi = m_amplitude * 2.0 *  m_omega  * y ;
 	//data_t phi = m_amplitude * 2.0 * ( x/sqrt(1.0-v*v)*cos(m_omega*x*v/sqrt(1.0-v*v)) + y*sin(m_omega*x*v/sqrt(1.0-v*v)) );

@@ -10,7 +10,9 @@ Shell debugging restarted
 + OMP_NUM_THREADS=4
 + srun Main_ScalarField3d.Linux.64.mpiicpc.ifort.OPTHIGH.MPI.OPENMPCC.Intel2020.2.ex params.txt
 srun: Job step aborted: Waiting up to 6 seconds for job step to finish.
-srun: error: jwc00n025: tasks 36-47: Terminated
-srun: error: jwc00n008: tasks 12-23: Terminated
-srun: error: jwc00n022: tasks 24-35: Terminated
-srun: error: jwc00n004: tasks 0-11: Terminated
+error: *** step 4352437:0 CANCELLED DUE TO TIME LIMIT ***
+error: *** job 4352437 CANCELLED DUE TO TIME LIMIT ***
+srun: error: jwc00n018: tasks 24-35: Terminated
+srun: error: jwc00n019: tasks 36-47: Terminated
+srun: error: jwc00n017: tasks 12-23: Terminated
+srun: error: jwc00n016: tasks 0-11: Terminated
