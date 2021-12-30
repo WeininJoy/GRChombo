@@ -1,0 +1,3 @@
+slurmstepd: error: *** JOB 4580974 ON m7440 CANCELLED AT 2021-12-27T03:58:35 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 122 seconds for job step to finish.
+slurmstepd: error: *** STEP 4580974.0 ON m7440 CANCELLED AT 2021-12-27T03:58:35 DUE TO TIME LIMIT ***
