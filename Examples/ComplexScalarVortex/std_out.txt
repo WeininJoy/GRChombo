@@ -1,0 +1,3 @@
+ number_procs = 48
+ threads = 4
+ simd width (doubles) = 8

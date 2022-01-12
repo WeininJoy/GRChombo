@@ -1,0 +1,74 @@
+/* GRChombo
+ * Copyright 2012 The GRChombo collaboration.
+ * Please refer to LICENSE in GRChombo's root directory.
+ */
+
+#ifndef SIMULATIONPARAMETERS_HPP_
+#define SIMULATIONPARAMETERS_HPP_
+
+// General includes
+#include "ChomboParameters.hpp"
+#include "GRParmParse.hpp"
+#include "SimulationParametersBase.hpp"
+// Problem specific includes:
+#include "ComplexStaticVortex.hpp"
+#include "ScalarPotential.hpp"
+#include "SphericalExtraction.hpp"
+
+
+class SimulationParameters : public ChomboParameters
+{
+  public:
+    SimulationParameters(GRParmParse &pp) : ChomboParameters(pp)
+    {
+        // read the problem specific params
+        readParams(pp);
+    }
+
+    void readParams(GRParmParse &pp)
+    {
+        // for regridding
+        pp.load("nan_check", nan_check, 1);
+        pp.load("sigma", sigma, 0.1);
+        pp.load("regrid_length", regrid_length, L);
+
+        // Initial, vortex and Kerr data
+        pp.load("vortex_amplitude", vortex_params.Amp);
+        pp.load("vortex_center", vortex_params.center, center);
+        pp.load("G_Newton", G_Newton, 1.0); // for now the example neglects backreaction
+        pp.load("winding_n", vortex_params.n);
+        pp.load("field_amplitude", field_amplitude);
+        pp.load("scalar_mass", potential_params.scalar_mass);
+
+        // Extraction params
+        pp.load("num_extraction_radii", extraction_params.num_extraction_radii,
+                2);
+        // Check for multiple extraction radii, otherwise load single
+        // radius/level (for backwards compatibility).
+        extraction_params.extraction_levels = {0, 0};
+        extraction_params.extraction_radii = {inner_r, outer_r};
+        pp.load("num_points_phi", extraction_params.num_points_phi, 2);
+        pp.load("num_points_theta", extraction_params.num_points_theta, 5);
+        if (extraction_params.num_points_theta % 2 == 0)
+        {
+            extraction_params.num_points_theta += 1;
+            pout() << "Parameter: num_points_theta incompatible with Simpson's "
+                   << "rule so increased by 1.\n";
+        }
+        pp.load("extraction_center", extraction_params.center, center);
+        pp.load("write_extraction", extraction_params.write_extraction, false);
+        pp.load("inner_r", extraction_params.inner_r);
+        pp.load("outer_r", extraction_params.outer_r);
+    }
+
+    // Problem specific parameters
+    double field_amplitude, regrid_length;
+    double sigma, proca_mass, proca_damping, excision_width;
+    int nan_check;
+    double G_Newton;
+    ComplexStaticVortex::params_t vortex_params;
+    SphericalExtraction::params_t extraction_params;
+    ScalarPotential::params_t potential_params;
+};
+
+#endif /* SIMULATIONPARAMETERS_HPP_ */
