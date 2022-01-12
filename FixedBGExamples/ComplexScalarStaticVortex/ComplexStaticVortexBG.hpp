@@ -30,8 +30,8 @@ class ComplexStaticVortexBG
     //! Struct for the params of the static vortex
     struct params_t
     {
-        double Amp = 0.1;                      //!<< The amplitude (C) of the static vortex
-        int n = 1;                             //!<< The winding number (n) of the static vortex
+        double Amp;                      //!<< The amplitude (C) of the static vortex
+        int n;                             //!<< The winding number (n) of the static vortex
         std::array<double, CH_SPACEDIM> center; //!< The center of the vortex
     };
 
@@ -54,10 +54,17 @@ class ComplexStaticVortexBG
         compute_metric_background(metric_vars, current_cell);
 
         // calculate and save chi
-        data_t chi = TensorAlgebra::compute_determinant_sym(metric_vars.gamma);
-        chi = pow(chi, -1.0 / 3.0);
-
+        // data_t chi = TensorAlgebra::compute_determinant_sym(metric_vars.gamma);
+        // chi = pow(chi, -1.0 / 3.0);
+        data_t chi = metric_vars.gamma[0][0];
         current_cell.store_vars(chi, c_chi);
+
+        // save gamma[0][0], K, shift[0], d1_gamma[0][0][0]
+        current_cell.store_vars(metric_vars.gamma[0][0], c_gamma_00);
+        current_cell.store_vars(metric_vars.K_tensor[0][0], c_K_00);
+        current_cell.store_vars(metric_vars.K, c_K);
+        current_cell.store_vars(metric_vars.shift[0], c_shift_0);
+        current_cell.store_vars(metric_vars.d1_gamma[0][0][0], c_d1_gamma_000);
     }
 
     template <class data_t, template <typename> class vars_t>
@@ -69,18 +76,25 @@ class ComplexStaticVortexBG
         Tensor<2, data_t> cylindrical_g;
         Tensor<2, data_t> cylindrical_K;
         Tensor<1, data_t> cylindrical_shift;
-        data_t vortex_lapse;
+        data_t lapse;
+        Tensor<2, Tensor<1, data_t>> cylindrical_d1_g;
+        Tensor<1, data_t> cylindrical_d1_lapse;
+        Tensor<2, data_t> cylindrical_d1_shift;
         
         // get position
         Coordinates<data_t> coords(current_cell, m_dx, m_params.center);
         
         // Compute the components in cylindrical coords
-        compute_metric_cylindrical(cylindrical_g, cylindrical_K, cylindrical_shift, vortex_lapse, coords);
+        compute_metric_cylindrical(cylindrical_g, cylindrical_K, cylindrical_shift, lapse, 
+                            cylindrical_d1_g, cylindrical_d1_lapse, cylindrical_d1_shift, coords);
         
         // work out where we are on the grid
         data_t x = coords.x;
         double y = coords.y;
         double z = coords.z;
+        // the radius in xy plane, subject to a floor
+        data_t rho2 = simd_max(x * x + y * y, 1e-1);
+        data_t rho = sqrt(rho2);
 
         using namespace CoordinateTransformations;
         // Convert cylindrical components to cartesian components using coordinate
@@ -88,7 +102,11 @@ class ComplexStaticVortexBG
         vars.gamma = cylindrical_to_cartesian_LL(cylindrical_g, x, y, z);
         vars.shift = cylindrical_to_cartesian_U(cylindrical_shift, x, y, z);
         vars.K_tensor = cylindrical_to_cartesian_LL(cylindrical_K, x, y, z);
-        
+        vars.d1_gamma = cylindrical_to_cartesian_LLL(cylindrical_d1_g, x, y, z);
+        vars.d1_shift = cylindrical_to_cartesian_UL(cylindrical_d1_shift, x, y, z);
+        vars.d1_lapse = cylindrical_to_cartesian_L(cylindrical_d1_lapse, x, y, z);
+        vars.lapse = lapse;
+
 
         using namespace TensorAlgebra;
         // Convert to BSSN vars
@@ -99,22 +117,23 @@ class ComplexStaticVortexBG
         // conformal version which is what we need here
         vars.K = compute_trace(vars.K_tensor, gamma_UU);
         make_trace_free(vars.K_tensor, vars.gamma, gamma_UU);
-
-        // use a pre collapsed lapse, could also use analytic one
-        // metric_vars.lapse = vortex_lapse;
-        vars.lapse = vortex_lapse;
+        
 
         // Populate the variables on the grid
         // NB We stil need to set Gamma^i which is NON ZERO
         // but we do this via a separate class/compute function
         // as we need the gradients of the metric which are not yet available
+        
     }
 
     template <class data_t>
     void compute_metric_cylindrical(Tensor<2, data_t> &cylindrical_g,
                                Tensor<2, data_t> &cylindrical_K,
                                Tensor<1, data_t> &cylindrical_shift,
-                               data_t &vortex_lapse,
+                               data_t &lapse,
+                               Tensor<2, Tensor<1, data_t>> &cylindrical_d1_g,
+                               Tensor<1, data_t> &cylindrical_d1_lapse,
+                               Tensor<2, data_t> &cylindrical_d1_shift,
                                const Coordinates<data_t> coords) const
     {
         // Static vortex params - amplitude Amp and winding number n
@@ -127,28 +146,34 @@ class ComplexStaticVortexBG
         double z = coords.z;
 
         // the radius in xy plane, subject to a floor
-        data_t rho2 = simd_max(x * x + y * y, 1e-12);
+        data_t rho2 = simd_max(x * x + y * y, 1e-4);
         data_t rho = sqrt(rho2);
 
         // Metric in static vortex coordinates, rho, phi and z
-        FOR(i, j) { cylindrical_g[i][j] = 0.0; }
+        FOR2(i, j) { cylindrical_g[i][j] = 0.0; }
         cylindrical_g[0][0] = exp(-4.0*M_PI*rho2);        // gamma_rr
         cylindrical_g[1][1] = rho2 * exp(-4.0*M_PI*rho2); // gamma_psipsi
         cylindrical_g[2][2] = 1.0;                        // gamma_zz
 
         // Extrinsic curvature. K_ij are 0 since the system is static, and 
         // K_ij = \partial_t \gamma_ij =0 
-        FOR(i, j) { cylindrical_K[i][j] = 0.0; }
+        FOR2(i, j) { cylindrical_K[i][j] = 0.0; }
 
         // set the analytic lapse
-        vortex_lapse = 1.0;
+        lapse = 1.0;
 
         // set the shift
-        cylindrical_shift[0] = 0.0;
-        cylindrical_shift[1] = 0.0;
-        cylindrical_shift[2] = 0.0;
-    }
+        FOR1(i) { cylindrical_shift[i] = 0.0; }
+        
+        // Calculate partial derivative of spatial metric
+        FOR3(i, j, k) { cylindrical_d1_g[i][j][k] = 0.0; }
+        cylindrical_d1_g[0][0][0] = -8.0*M_PI*rho* cylindrical_g[0][0];
+        cylindrical_d1_g[1][1][0] = (2.0/rho -8.0*M_PI*rho)* cylindrical_g[1][1];
 
+        // calculate derivs of lapse and shift
+        FOR1(i) {cylindrical_d1_lapse[i] = 0.0; }
+        FOR2(i, j) {cylindrical_d1_shift[i][j] = 0.0; }
+    }    
 };
 
 #endif /* COMPLEXSTATICVORTEXBG_HPP_ */

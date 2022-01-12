@@ -1,0 +1,70 @@
+ParmParse::queryval type mismatch on value number 0 of ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,0.5)ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,0.5)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,0.5)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,0.5)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,0.5)
+ !!!
+
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,0.5)
+ !!!
+
+ !!!
+INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,0.5)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER(N,1)   plot_interval ::  (=,0.5)
+ !!!
+ value = 0.5
+(N,1)   plot_interval ::  (=,0.5)
+ !!!
+0.5)
+ !!!
+ParmParse::queryval type mismatch on value number ParmParse::queryval type mismatch on value number 0 of 0 of 
+ last occurence of plot_interval
+ Expected INTEGER
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+ value = 0.5
+(N,1)   plot_interval ::  ((N,1)   plot_interval ::  (=,0.5)
+=,0.5)
+ !!!
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,0.5)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of plot_interval
+ Expected INTEGER value = 0.5
+(N,1)   plot_interval ::  (=,0.5)
+ !!!

@@ -28,9 +28,9 @@ class BoostedIsotropicBHFixedBG
     //! Struct for the params of the  BH
     struct params_t
     {
-        double mass = 0.0;                      //!<< The mass of the BH
+        double mass;                      //!<< The mass of the BH
         std::array<double, CH_SPACEDIM> center; //!< The center of the BH
-        double velocity = 0.0; //!< The boost velocity in the x direction
+        double velocity; //!< The boost velocity in the x direction
     };
 
     template <class data_t> using Vars = ADMFixedBGVars::Vars<data_t>;

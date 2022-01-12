@@ -13,24 +13,24 @@ N3 = 16
 
 # Length of longest box side, dx_coarsest = L/N(max)
 # NB if non cubic, this determines dx for all sides
-L = 1280
+L = 1.28
 
 # Regridding
 tag_buffer_size = 0
-#regrid_length = 2048
+# regrid_length = 2560
 
 # Level data
 # Maximum number of times you can regrid above coarsest level
-max_level = 1 # There are (max_level+1) grids, so min is zero
+max_level = 2 # There are (max_level+1) grids, so min is zero
 # Frequency of regridding at each level
 # Need one for each level, ie max_level+1 items
 # Generally you do not need to regrid frequently on every level
 regrid_interval = 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 # Max box size
-max_grid_size = 16
+max_grid_size = 8
 # Min box size
-block_factor = 16
+block_factor = 8
 tag_buffer_size = 0
 
 #boundaries and periodicity of grid
@@ -43,7 +43,7 @@ isPeriodic = 0 0 1
 # (see BoundaryConditions.hpp for details)
 hi_boundary = 3 3 0
 lo_boundary = 3 3 0
-center = 640.0 640.0 80.0
+# center = 640.0 640.0 80.0
 
 # if reflective boundaries selected, must select 
 # parity values (in order given by UserVariables.hpp)
@@ -68,21 +68,23 @@ extrapolation_order = 0
 # dt will be dx*dt_multiplier on each grid level
 # HDF5files are written every dt = L/N*dt_multiplier*checkpoint_interval
 checkpoint_interval = 1000
-plot_interval = 10
-num_plot_vars = 6
+plot_interval = 1
+num_plot_vars = 12
 #plot_vars = rhoJ rhoM Jdot Mdot SourceJ SourceM
-plot_vars = phi_Re phi_Im Pi_Re Pi_Im cir rho
+plot_vars = phi_Re phi_Im Pi_Re Pi_Im chi cir rho gamma_00 K_00 K shift_0 d1_gamma_000
 dt_multiplier = 0.05
-stop_time = 10.0
+stop_time = 0.003
+
+nan_check = 0
 
 # coefficient for KO numerical dissipation
 sigma = 0.5
 
 # SF Initial data
-scalar_mass = 1.0
-field_amplitude_re = 0.1
-field_amplitude_im = 0.1
-field_amplitude = 0.1
+scalar_mass = 0.0
+field_amplitude_re = 1.0
+field_amplitude_im = 1.0
+field_amplitude = 1.0
 # not used
 f_axion = 0.0
 
@@ -93,7 +95,7 @@ inner_r = 4.0
 outer_r = 200.0
 
 # Static Vortex initial data
-vortex_amplitude = 0.1
+vortex_amplitude = 1.0
 winding_n = 1
 
 # for extraction

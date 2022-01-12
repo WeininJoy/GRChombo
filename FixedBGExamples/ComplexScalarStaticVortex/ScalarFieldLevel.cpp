@@ -17,7 +17,7 @@
 
 // Problem specific includes
 #include "ComplexStaticVortexBG.hpp"
-#include "BoostedIsotropicBHFixedBG2.hpp"
+// #include "BoostedIsotropicBHFixedBG2.hpp"
 #include "ExcisionDiagnostics.hpp"
 #include "ExcisionEvolution.hpp"
 #include "FixedBGDensity.hpp"
@@ -55,13 +55,14 @@ void ScalarFieldLevel::initialData()
     BoxLoops::loop(compute_pack, m_state_diagnostics, m_state_diagnostics,
                    SKIP_GHOST_CELLS);
     BoxLoops::loop(set_phi, m_state_new, m_state_new, FILL_GHOST_CELLS);
-
+    /*
     BoostedIsotropicBHFixedBG boosted_bh(m_p.bg_params, m_dx);
     // excise within horizon, no simd
     BoxLoops::loop(
         ExcisionEvolution<ScalarFieldWithPotential, BoostedIsotropicBHFixedBG>(
             m_dx, m_p.center, boosted_bh),
         m_state_new, m_state_new, SKIP_GHOST_CELLS, disable_simd());
+    */
 }
 
 // Things to do before outputting a plot file
@@ -87,17 +88,18 @@ void ScalarFieldLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
     ScalarPotential potential(m_p.potential_params);
     ScalarFieldWithPotential scalar_field(potential);
     ComplexStaticVortexBG static_vor(m_p.vortex_params, m_dx);
-    BoostedIsotropicBHFixedBG boosted_bh(m_p.bg_params, m_dx);
     FixedBGEvolution<ScalarFieldWithPotential, ComplexStaticVortexBG>
         my_matter(scalar_field, static_vor, m_p.sigma, m_dx, m_p.center);
 
     BoxLoops::loop(my_matter, a_soln, a_rhs, SKIP_GHOST_CELLS);
-
+    /*
+    // BoostedIsotropicBHFixedBG boosted_bh(m_p.bg_params, m_dx);
     // excise within horizon, no simd
     BoxLoops::loop(
         ExcisionEvolution<ScalarFieldWithPotential, BoostedIsotropicBHFixedBG>(
             m_dx, m_p.center, boosted_bh),
         a_soln, a_rhs, SKIP_GHOST_CELLS, disable_simd());
+    */
 }
 
 void ScalarFieldLevel::specificPostTimeStep()
@@ -112,11 +114,13 @@ void ScalarFieldLevel::specificPostTimeStep()
         ScalarPotential potential(m_p.potential_params);
         ScalarFieldWithPotential scalar_field(potential);
         ComplexStaticVortexBG static_vor(m_p.vortex_params, m_dx);
-        BoostedIsotropicBHFixedBG boosted_bh(m_p.bg_params, m_dx);
         FixedBGDensity<ScalarFieldWithPotential, ComplexStaticVortexBG>
             density(scalar_field, static_vor, m_dx, m_p.center);
         BoxLoops::loop(density, m_state_new, m_state_diagnostics,
                        SKIP_GHOST_CELLS);
+        /*
+        BoostedIsotropicBHFixedBG boosted_bh(m_p.bg_params, m_dx);
+
         // excise within horizon and outside extraction radius
         BoxLoops::loop(
             ExcisionDiagnostics<ScalarFieldWithPotential,
@@ -124,6 +128,7 @@ void ScalarFieldLevel::specificPostTimeStep()
                 m_dx, m_p.center, boosted_bh, m_p.inner_r, m_p.outer_r),
             m_state_diagnostics, m_state_diagnostics, SKIP_GHOST_CELLS,
             disable_simd());
+        */
     }
 
     // write out the integral after each coarse timestep on rank 0
