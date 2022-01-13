@@ -47,7 +47,7 @@ class ComplexStaticVortex
     ComplexStaticVortex(params_t a_params, double a_dx)
         : m_params(a_params), m_dx(a_dx) {}
 
-    template <class data_t> void compute(const Cell<data_t> &current_cell) const
+    template <class data_t> void compute(Cell<data_t> &current_cell) const
     {
         // set up vars for the metric and extrinsic curvature, shift and lapse in
         // cylindrical coords
@@ -68,7 +68,7 @@ class ComplexStaticVortex
         double y = coords.y;
         double z = coords.z;
         // the radius in xy plane, subject to a floor
-        data_t rho2 = simd_max(x * x + y * y, 1e-1);
+        data_t rho2 = simd_max(x * x + y * y, 1e-4);
         data_t rho = sqrt(rho2);
 
         using namespace CoordinateTransformations;
@@ -130,8 +130,10 @@ class ComplexStaticVortex
 
         // Metric in static vortex coordinates, rho, phi and z
         FOR2(i, j) { cylindrical_g[i][j] = 0.0; }
-        cylindrical_g[0][0] = exp(-4.0*M_PI*rho2);        // gamma_rr
-        cylindrical_g[1][1] = rho2 * exp(-4.0*M_PI*rho2); // gamma_psipsi
+        // cylindrical_g[0][0] = exp(-4.0*M_PI*m_p.G_Newton*Amp*Amp* pow(rho2,n));        // gamma_rr
+        // cylindrical_g[1][1] = rho2 * exp(-4.0*M_PI*m_p.G_Newton*Amp*Amp* pow(rho2,n)); // gamma_psipsi
+        cylindrical_g[0][0] = 1.0;
+        cylindrical_g[1][1] = rho2;
         cylindrical_g[2][2] = 1.0;                        // gamma_zz
 
         // Extrinsic curvature. K_ij are 0 since the system is static, and 

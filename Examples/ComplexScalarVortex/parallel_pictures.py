@@ -27,12 +27,12 @@ matplotlib.use("Agg")
 # Enable Parallelism
 yt.enable_parallelism()
 
-data_location = "Complex_vortex_m0_LL_plt000001.3d.hdf5"  # Data file location
+data_location = "hdf5/ComplexVortex_m0_plt000010.3d.hdf5"  # Data file location
 # Loading dataset
 ts = yt.load(data_location)
 
 # Choose what fields you want to plot
-variable_names = ["chi", "phi_Re"]
+variable_names = ["phi_Re"]
 # Choose the center of the plot
 # "c" ... center of the box
 # "max" ... maximum of the plotted field

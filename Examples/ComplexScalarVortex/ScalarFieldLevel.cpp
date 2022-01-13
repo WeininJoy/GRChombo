@@ -5,12 +5,12 @@
 
 // General includes common to most GR problems
 #include "ScalarFieldLevel.hpp"
-#include "AMRReductions.hpp"
+// #include "AMRReductions.hpp"
 #include "BoxLoops.hpp"
 #include "ComputePack.hpp"
 #include "NanCheck.hpp"
-#include "SetValue.hpp"
-#include "SmallDataIO.hpp"
+// #include "SetValue.hpp"
+// #include "SmallDataIO.hpp"
 #include "PositiveChiAndAlpha.hpp"
 #include "SixthOrderDerivatives.hpp"
 #include "TraceARemoval.hpp"
@@ -25,13 +25,13 @@
 #include "FixedGridsTaggingCriterion.hpp"
 
 // Problem specific includes
-#include "ComplexStaticVortex.hpp"
 #include "InitialConditions.hpp"
+#include "ComplexStaticVortex.hpp"
 #include "ScalarPotential.hpp"
-#include "ComplexScalarCirculation.hpp"
-#include "CirculationExtraction.hpp"
+// #include "ComplexScalarCirculation.hpp"
+// #include "CirculationExtraction.hpp"
 #include "ComplexScalarField.hpp"
-#include "GammaCalculator.hpp"
+#include "SetValue.hpp"
 
 // Things to do at each advance step, after the RK4 is calculated
 void ScalarFieldLevel::specificAdvance()
@@ -43,7 +43,7 @@ void ScalarFieldLevel::specificAdvance()
 
     // Check for nan's
     if (m_p.nan_check)
-        BoxLoops::loop(NanCheck(), m_state_new, m_state_new, SKIP_GHOST_CELLS,
+        BoxLoops::loop(NanCheck(), m_state_new, m_state_new, EXCLUDE_GHOST_CELLS,
                        disable_simd());
 }
 
@@ -55,16 +55,13 @@ void ScalarFieldLevel::initialData()
         pout() << "ScalarFieldLevel::initialData " << m_level << endl;
 
     // First set everything to zero to avoid undefined values,
-    // then initial conditions for fields
-    SetValue set_zero(0.0);
-    ComplexStaticVortex static_vor(m_p.vortex_params, m_dx); // just calculates chi
-    InitialConditions<ComplexStaticVortex> set_phi(
-        m_p.field_amplitude, m_p.potential_params.scalar_mass, m_p.center,
-        static_vor, m_dx);
-    auto compute_pack = make_compute_pack(set_zero, static_vor);
-    BoxLoops::loop(compute_pack, m_state_diagnostics, m_state_diagnostics,
-                   SKIP_GHOST_CELLS);
-    BoxLoops::loop(set_phi, m_state_new, m_state_new, FILL_GHOST_CELLS);
+    // then initial conditions for complex scalar field 
+    BoxLoops::loop(
+        make_compute_pack(SetValue(0.), ComplexStaticVortex(m_p.vortex_params, m_dx),
+                          InitialConditions(m_p.initial_params, m_dx)),
+        m_state_new, m_state_new, INCLUDE_GHOST_CELLS);
+    
+    fillAllGhosts();
 }
 
 // Things to do before outputting a plot file
@@ -104,7 +101,7 @@ void ScalarFieldLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
         make_compute_pack(TraceARemoval(),  PositiveChiAndAlpha()),
                         a_soln, a_soln, INCLUDE_GHOST_CELLS);
 
-    // Calculate MatterCCZ4 right hand side with matter_t = ScalarField
+    // Calculate MatterCCZ4 right hand side with matter_t = ComplexScalarField
     ScalarPotential potential(m_p.potential_params);
     ScalarFieldWithPotential scalar_field(potential);
     if (m_p.max_spatial_derivative_order == 4)
@@ -127,11 +124,12 @@ void ScalarFieldLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
 
 void ScalarFieldLevel::specificPostTimeStep()
 {
+    /*
     // At any level, but after the coarsest timestep
     int min_level = 0;
     bool calculate_quantities = at_level_timestep_multiple(min_level);
 
-    /*
+    
     if (calculate_quantities)
     {
         fillAllGhosts();
@@ -145,6 +143,7 @@ void ScalarFieldLevel::specificPostTimeStep()
     }
     */
 
+    /*
     // write out the integral after each coarse timestep on rank 0
     if (m_level == 0)
     {
@@ -165,7 +164,7 @@ void ScalarFieldLevel::specificPostTimeStep()
             integral_file.write_header_line({"rho"});
         }
         integral_file.write_time_data_line(data_for_writing);
-
+    */
         /*
         // set up an interpolator
         // pass the boundary params so that we can use symmetries if
@@ -183,8 +182,9 @@ void ScalarFieldLevel::specificPostTimeStep()
         CirculationExtraction extraction(c_cir, num_points, m_p.L, m_p.center,
                                         m_dt, m_time);
         extraction.execute_query(&interpolator, "outputs_1000");
-        */
+        
     }
+    */
 }
 
 // Things to do at ODE update, after soln + rhs
