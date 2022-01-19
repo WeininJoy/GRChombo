@@ -88,8 +88,8 @@ template <class potential_t = DefaultPotential> class ComplexScalarField
         const vars_t<data_t> &vars, //!< the value of the variables
         const vars_t<Tensor<1, data_t>> &d1, //!< the value of the 1st derivs
         const Tensor<2, data_t> &h_UU, //!< the inverse metric (raised indices)
-        const Tensor<3, data_t> &chris_phys_ULL)
-        const; //!< the physical christoffel symbol
+        const Tensor<3, data_t> &chris_ULL)
+        const; //!< the conformal christoffel symbol
 
     //! The function which calculates the EM Tensor, given the vars and
     //! derivatives, excluding the potential
@@ -100,7 +100,7 @@ template <class potential_t = DefaultPotential> class ComplexScalarField
         const vars_t<Tensor<1, data_t>> &d1, //!< the value of the first deriv of phi
         const Tensor<2, data_t> &h_UU, //!< the inverse metric (raised indices).
         const Tensor<3, data_t>
-            &chris_phys_ULL); //!< the physical christoffel symbol
+            &chris_ULL); //!< the conformal christoffel symbol
 
     //! The function which adds in the RHS for the matter field vars,
     //! including the potential

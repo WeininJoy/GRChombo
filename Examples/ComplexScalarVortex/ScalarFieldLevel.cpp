@@ -9,7 +9,6 @@
 #include "BoxLoops.hpp"
 #include "ComputePack.hpp"
 #include "NanCheck.hpp"
-// #include "SetValue.hpp"
 // #include "SmallDataIO.hpp"
 #include "PositiveChiAndAlpha.hpp"
 #include "SixthOrderDerivatives.hpp"
@@ -25,6 +24,8 @@
 #include "FixedGridsTaggingCriterion.hpp"
 
 // Problem specific includes
+#include "ComputePack.hpp"
+#include "GammaCalculator.hpp"
 #include "InitialConditions.hpp"
 #include "ComplexStaticVortex.hpp"
 #include "ScalarPotential.hpp"
@@ -38,7 +39,8 @@ void ScalarFieldLevel::specificAdvance()
 {
     // Enforce trace free A_ij and positive chi and alpha
     BoxLoops::loop(
-        make_compute_pack(TraceARemoval(),PositiveChiAndAlpha()),
+        make_compute_pack(TraceARemoval(),
+                        PositiveChiAndAlpha(m_p.min_chi, m_p.min_lapse)),
                        m_state_new, m_state_new, INCLUDE_GHOST_CELLS);
 
     // Check for nan's
@@ -62,11 +64,13 @@ void ScalarFieldLevel::initialData()
         m_state_new, m_state_new, INCLUDE_GHOST_CELLS);
     
     fillAllGhosts();
+    BoxLoops::loop(GammaCalculator(m_dx), m_state_new, m_state_new,
+                   EXCLUDE_GHOST_CELLS);
 }
 
+#ifdef CH_USE_HDF5
 // Things to do before outputting a plot file
 void ScalarFieldLevel::prePlotLevel() {
-
 
     fillAllGhosts();
     ScalarPotential potential(m_p.potential_params);
@@ -75,6 +79,7 @@ void ScalarFieldLevel::prePlotLevel() {
         MatterConstraints<ScalarFieldWithPotential>(
             scalar_field, m_dx, m_p.G_Newton, c_Ham, Interval(c_Mom, c_Mom)),
         m_state_new, m_state_diagnostics, EXCLUDE_GHOST_CELLS);
+
 
     /*
     ScalarPotential potential(m_p.potential_params);
@@ -87,6 +92,7 @@ void ScalarFieldLevel::prePlotLevel() {
     BoxLoops::loop(circulation, m_state_new, m_state_diagnostics, SKIP_GHOST_CELLS); 
     */
 }
+#endif
 
 // Things to do in RHS update, at each RK4 step
 void ScalarFieldLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
@@ -98,7 +104,7 @@ void ScalarFieldLevel::specificEvalRHS(GRLevelData &a_soln, GRLevelData &a_rhs,
 
     // Enforce trace free A_ij and positive chi and alpha
     BoxLoops::loop(
-        make_compute_pack(TraceARemoval(),  PositiveChiAndAlpha()),
+        make_compute_pack(TraceARemoval(),  PositiveChiAndAlpha(m_p.min_chi, m_p.min_lapse)),
                         a_soln, a_soln, INCLUDE_GHOST_CELLS);
 
     // Calculate MatterCCZ4 right hand side with matter_t = ComplexScalarField
@@ -203,8 +209,7 @@ void ScalarFieldLevel::preTagCells()
 
 void ScalarFieldLevel::computeTaggingCriterion(FArrayBox &tagging_criterion,
                                                const FArrayBox &current_state)
-{
-    BoxLoops::loop(FixedGridsTaggingCriterion(m_dx, m_level, m_p.regrid_length,
-                                              m_p.center),
-                   current_state, tagging_criterion, disable_simd());
+{                 
+    BoxLoops::loop(FixedGridsTaggingCriterion(m_dx, m_level, m_p.regrid_length, m_p.center),
+                   current_state, tagging_criterion);
 }

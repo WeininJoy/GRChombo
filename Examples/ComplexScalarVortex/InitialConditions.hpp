@@ -51,6 +51,10 @@ class InitialConditions
         data_t phi_Im =   m_params.field_amplitude  * y ;
         data_t Pi_Re  =   m_params.field_amplitude  * m_params.scalar_mass * y ;
         data_t Pi_Im  = - m_params.field_amplitude  * m_params.scalar_mass * x ;
+        // data_t phi_Re =   0.0;
+        // data_t phi_Im =   0.0;
+        // data_t Pi_Re  =   0.0;
+        // data_t Pi_Im  =   0.0;
 
         // Store the initial values of the variables
         current_cell.store_vars(phi_Re, c_phi_Re);

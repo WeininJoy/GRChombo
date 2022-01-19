@@ -1,0 +1,70 @@
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton :: G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+ (=,1.0;)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+ParmParse::queryval type mismatch on value number 0 of 
+ last occurence of G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+G_Newton
+ Expected DOUBLE value = 1.0;
+(N,1)        G_Newton ::  (=,1.0;)
+ !!!
+=,1.0;)
+ !!!
+ !!!

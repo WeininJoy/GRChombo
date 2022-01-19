@@ -1,0 +1,4 @@
+Parameter: nan_check = 0 warning: should not normally be disabled !!!
+srun: Job step aborted: Waiting up to 122 seconds for job step to finish.
+slurmstepd: error: *** JOB 4744492 ON m7006 CANCELLED AT 2022-01-17T08:12:53 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 4744492.0 ON m7007 CANCELLED AT 2022-01-17T08:12:53 DUE TO TIME LIMIT ***

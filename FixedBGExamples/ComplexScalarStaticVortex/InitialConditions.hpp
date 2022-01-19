@@ -59,6 +59,10 @@ template <class background_t> class InitialConditions
         data_t phi_Im =   m_amplitude  * y ;
         data_t Pi_Re  =   m_amplitude  *  m_omega  * y ;
         data_t Pi_Im  = - m_amplitude  *  m_omega  * x ;
+        // data_t phi_Re =   0.0 ;
+        // data_t phi_Im =   0.0 ;
+        // data_t Pi_Re  =   0.0 ;
+        // data_t Pi_Im  =   0.0 ;
 
         // Store the initial values of the variables
         current_cell.store_vars(phi_Re, c_phi_Re);

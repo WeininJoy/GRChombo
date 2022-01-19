@@ -15,12 +15,12 @@ template <class potential_t>
 template <class data_t, template <typename> class vars_t>
 emtensor_t<data_t> ComplexScalarField<potential_t>::compute_emtensor(
     const vars_t<data_t> &vars, const vars_t<Tensor<1, data_t>> &d1, 
-    const Tensor<2, data_t> &h_UU, const Tensor<3, data_t> &chris_phys_ULL) const
+    const Tensor<2, data_t> &h_UU, const Tensor<3, data_t> &chris_ULL) const
 {
     emtensor_t<data_t> out;
 
     // call the function which computes the em tensor excluding the potential
-    emtensor_excl_potential(out, vars, d1, h_UU, chris_phys_ULL);
+    emtensor_excl_potential(out, vars, d1, h_UU, chris_ULL);
 
     // set the potential values
     data_t V_of_phi = 0.0;
@@ -31,7 +31,7 @@ emtensor_t<data_t> ComplexScalarField<potential_t>::compute_emtensor(
 
     out.rho += V_of_phi;
     out.S += -3.0 * V_of_phi;
-    FOR2(i, j) { out.Sij[i][j] += -vars.h[i][j] * V_of_phi; }
+    FOR2(i, j) { out.Sij[i][j] += -vars.h[i][j] * V_of_phi / vars.chi; }
 
     return out;
 }
@@ -42,27 +42,27 @@ template <class data_t, template <typename> class vars_t>
 void ComplexScalarField<potential_t>::emtensor_excl_potential(
     emtensor_t<data_t> &out, const vars_t<data_t> &vars,
     const vars_t<Tensor<1, data_t>> &d1, const Tensor<2, data_t> &h_UU, 
-    const Tensor<3, data_t> &chris_phys_ULL)
+    const Tensor<3, data_t> &chris_ULL)
 {
     // Useful quantity Vt
     data_t Vt = -vars.Pi_Re * vars.Pi_Re - vars.Pi_Im * vars.Pi_Im;
     FOR2(i, j)
     {
-        Vt += h_UU[i][j] * d1.phi_Re[i] * d1.phi_Re[j] +
-              h_UU[i][j] * d1.phi_Im[i] * d1.phi_Im[j];
+        Vt += vars.chi * h_UU[i][j] * d1.phi_Re[i] * d1.phi_Re[j] +
+              vars.chi * h_UU[i][j] * d1.phi_Im[i] * d1.phi_Im[j];
     }
 
     // Calculate components of EM Tensor
     // S_ij = T_ij
     FOR2(i, j)
     {
-        out.Sij[i][j] = -0.5 * vars.h[i][j] * Vt +
+        out.Sij[i][j] = -0.5 * vars.h[i][j] * Vt / vars.chi +
                         d1.phi_Re[i] * d1.phi_Re[j] +
                         d1.phi_Im[i] * d1.phi_Im[j];
     }
 
     // S = Tr_S_ij
-    out.S = TensorAlgebra::compute_trace(out.Sij, h_UU);
+    out.S = vars.chi * TensorAlgebra::compute_trace(out.Sij, h_UU);
 
     // S_i (note lower index) = - n^a T_a0
     FOR1(i)
@@ -114,7 +114,7 @@ void ComplexScalarField<potential_t>::matter_rhs_excl_potential(
     using namespace TensorAlgebra;
 
     const auto h_UU = compute_inverse_sym(vars.h);
-    const auto chris_phys = compute_christoffel(d1.h, h_UU);
+    const auto chris = compute_christoffel(d1.h, h_UU);
 
     // evolution equations for scalar field and (minus) its conjugate momentum
     rhs.phi_Re = vars.lapse * vars.Pi_Re + advec.phi_Re;
@@ -125,17 +125,17 @@ void ComplexScalarField<potential_t>::matter_rhs_excl_potential(
     FOR2(i, j)
     {
         // includes non conformal parts of chris not included in chris_ULL
-        rhs.Pi_Re += h_UU[i][j] * (vars.lapse * d2.phi_Re[i][j] +
-                                       d1.lapse[i] * d1.phi_Re[j]);
-        rhs.Pi_Im += h_UU[i][j] * (vars.lapse * d2.phi_Im[i][j] +
-                                       d1.lapse[i] * d1.phi_Im[j]);
+        rhs.Pi_Re += h_UU[i][j] * (vars.chi * vars.lapse * d2.phi_Re[i][j] +
+                                    vars.chi * d1.lapse[i] * d1.phi_Re[j]);
+        rhs.Pi_Im += h_UU[i][j] * (vars.chi * vars.lapse * d2.phi_Im[i][j] +
+                                    vars.chi * d1.lapse[i] * d1.phi_Im[j]);
 
         FOR1(k)
         {
-            rhs.Pi_Re += -vars.lapse * h_UU[i][j] *
-                         (chris_phys.ULL[k][i][j] * d1.phi_Re[k]);
-            rhs.Pi_Im += -vars.lapse * h_UU[i][j] *
-                         (chris_phys.ULL[k][i][j] * d1.phi_Im[k]);
+            rhs.Pi_Re += -vars.chi * vars.lapse * h_UU[i][j] *
+                         (chris.ULL[k][i][j] * d1.phi_Re[k]);
+            rhs.Pi_Im += -vars.chi * vars.lapse * h_UU[i][j] *
+                         (chris.ULL[k][i][j] * d1.phi_Im[k]);
         }
     }
 }

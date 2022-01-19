@@ -32,6 +32,7 @@ class ComplexStaticVortexBG
     {
         double Amp;                      //!<< The amplitude (C) of the static vortex
         int n;                             //!<< The winding number (n) of the static vortex
+        double G_Newton;
         std::array<double, CH_SPACEDIM> center; //!< The center of the vortex
     };
 
@@ -58,13 +59,6 @@ class ComplexStaticVortexBG
         // chi = pow(chi, -1.0 / 3.0);
         data_t chi = metric_vars.gamma[0][0];
         current_cell.store_vars(chi, c_chi);
-
-        // save gamma[0][0], K, shift[0], d1_gamma[0][0][0]
-        current_cell.store_vars(metric_vars.gamma[0][0], c_gamma_00);
-        current_cell.store_vars(metric_vars.K_tensor[0][0], c_K_00);
-        current_cell.store_vars(metric_vars.K, c_K);
-        current_cell.store_vars(metric_vars.shift[0], c_shift_0);
-        current_cell.store_vars(metric_vars.d1_gamma[0][0][0], c_d1_gamma_000);
     }
 
     template <class data_t, template <typename> class vars_t>
@@ -93,7 +87,7 @@ class ComplexStaticVortexBG
         double y = coords.y;
         double z = coords.z;
         // the radius in xy plane, subject to a floor
-        data_t rho2 = simd_max(x * x + y * y, 1e-1);
+        data_t rho2 = simd_max(x * x + y * y, 1.0e-4);
         data_t rho = sqrt(rho2);
 
         using namespace CoordinateTransformations;
@@ -139,6 +133,7 @@ class ComplexStaticVortexBG
         // Static vortex params - amplitude Amp and winding number n
         double Amp = m_params.Amp;
         double n = m_params.n;
+        double G_Newton = m_params.G_Newton;
 
         // work out where we are on the grid
         data_t x = coords.x;
@@ -146,13 +141,13 @@ class ComplexStaticVortexBG
         double z = coords.z;
 
         // the radius in xy plane, subject to a floor
-        data_t rho2 = simd_max(x * x + y * y, 1e-4);
+        data_t rho2 = simd_max(x * x + y * y, 1.0e-4);
         data_t rho = sqrt(rho2);
 
         // Metric in static vortex coordinates, rho, phi and z
         FOR2(i, j) { cylindrical_g[i][j] = 0.0; }
-        cylindrical_g[0][0] = exp(-4.0*M_PI*rho2);        // gamma_rr
-        cylindrical_g[1][1] = rho2 * exp(-4.0*M_PI*rho2); // gamma_psipsi
+        cylindrical_g[0][0] = exp(-4.0*M_PI*G_Newton*Amp*Amp* pow(rho2,n));        // gamma_rr
+        cylindrical_g[1][1] = rho2 * exp(-4.0*M_PI*G_Newton*Amp*Amp* pow(rho2,n)); // gamma_psipsi
         cylindrical_g[2][2] = 1.0;                        // gamma_zz
 
         // Extrinsic curvature. K_ij are 0 since the system is static, and 
@@ -167,8 +162,8 @@ class ComplexStaticVortexBG
         
         // Calculate partial derivative of spatial metric
         FOR3(i, j, k) { cylindrical_d1_g[i][j][k] = 0.0; }
-        cylindrical_d1_g[0][0][0] = -8.0*M_PI*rho* cylindrical_g[0][0];
-        cylindrical_d1_g[1][1][0] = (2.0/rho -8.0*M_PI*rho)* cylindrical_g[1][1];
+        cylindrical_d1_g[0][0][0] = -8.0*M_PI*G_Newton*Amp*Amp*n*pow(rho, 2.*n-1)* cylindrical_g[0][0];
+        cylindrical_d1_g[1][1][0] = (2.0/rho -8.0*M_PI*G_Newton*Amp*Amp*n*pow(rho, 2.*n-1))* cylindrical_g[1][1];
 
         // calculate derivs of lapse and shift
         FOR1(i) {cylindrical_d1_lapse[i] = 0.0; }

@@ -32,8 +32,9 @@ class SimulationParameters : public SimulationParametersBase
         pp.load("vortex_amplitude", vortex_params.Amp, 1.0);
         vortex_params.center = center;
         pp.load("winding_n", vortex_params.n, 1);
+        vortex_params.G_Newton = G_Newton;
         // initial data
-        pp.load("scalar_mass", initial_params.scalar_mass, 1.0);
+        pp.load("scalar_mass", initial_params.scalar_mass, 0.0);
         initial_params.field_amplitude = vortex_params.Amp;
         initial_params.center = center;
         // potential data

@@ -32,14 +32,15 @@ class SimulationParameters : public ChomboParameters
         pp.load("regrid_length", regrid_length, L);
 
         // Initial, vortex and Kerr data
+        pp.load("field_amplitude", field_amplitude);
+        vortex_params.Amp= field_amplitude;
+        pp.load("vortex_center", vortex_params.center, center);
+        pp.load("winding_n", vortex_params.n);
+        pp.load("G_Newton", vortex_params.G_Newton, 1.0);
+        pp.load("scalar_mass", potential_params.scalar_mass);
         pp.load("bh_mass", bg_params.mass);
         pp.load("bh_velocity", bg_params.velocity);
         pp.load("bh_center", bg_params.center, center);
-        pp.load("vortex_amplitude", vortex_params.Amp);
-        pp.load("vortex_center", vortex_params.center, center);
-        pp.load("winding_n", vortex_params.n);
-        pp.load("field_amplitude", field_amplitude);
-        pp.load("scalar_mass", potential_params.scalar_mass);
         pp.load("inner_r", inner_r, 5.0);
         pp.load("outer_r", outer_r,
                 100.0 / bg_params.velocity / potential_params.scalar_mass);
@@ -64,8 +65,7 @@ class SimulationParameters : public ChomboParameters
     }
 
     // Problem specific parameters
-    double field_amplitude, regrid_length;
-    double sigma, proca_mass, proca_damping, excision_width;
+    double field_amplitude, regrid_length, sigma;
     int nan_check;
     double inner_r, outer_r;
     BoostedIsotropicBHFixedBG::params_t bg_params;

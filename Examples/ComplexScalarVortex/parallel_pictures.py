@@ -27,12 +27,12 @@ matplotlib.use("Agg")
 # Enable Parallelism
 yt.enable_parallelism()
 
-data_location = "hdf5/ComplexVortex_m0_plt000010.3d.hdf5"  # Data file location
+data_location = "hdf5/ComplexVortex_m0_plt000005.3d.hdf5"  # Data file location
 # Loading dataset
 ts = yt.load(data_location)
 
 # Choose what fields you want to plot
-variable_names = ["phi_Re"]
+variable_names = ["phi_Re", "Ham"]
 # Choose the center of the plot
 # "c" ... center of the box
 # "max" ... maximum of the plotted field
@@ -44,7 +44,7 @@ center =  "c"
 #center[0] = 0
 
 # Width of the plot (In simulation units)
-width = 0.64
+width = 0.16
 
 # Orthogonal Axis
 axis = "z"

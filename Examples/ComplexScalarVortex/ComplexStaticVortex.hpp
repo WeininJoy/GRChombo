@@ -37,6 +37,7 @@ class ComplexStaticVortex
         double Amp;                      //!<< The amplitude (C) of the static vortex
         int n;                             //!<< The winding number (n) of the static vortex
         std::array<double, CH_SPACEDIM> center; //!< The center of the vortex
+        double G_Newton;
     };
 
   protected:
@@ -47,7 +48,7 @@ class ComplexStaticVortex
     ComplexStaticVortex(params_t a_params, double a_dx)
         : m_params(a_params), m_dx(a_dx) {}
 
-    template <class data_t> void compute(Cell<data_t> &current_cell) const
+    template <class data_t> void compute(Cell<data_t> current_cell) const
     {
         // set up vars for the metric and extrinsic curvature, shift and lapse in
         // cylindrical coords
@@ -68,7 +69,7 @@ class ComplexStaticVortex
         double y = coords.y;
         double z = coords.z;
         // the radius in xy plane, subject to a floor
-        data_t rho2 = simd_max(x * x + y * y, 1e-4);
+        data_t rho2 = simd_max(x * x + y * y, 1e-12);
         data_t rho = sqrt(rho2);
 
         using namespace CoordinateTransformations;
@@ -77,8 +78,6 @@ class ComplexStaticVortex
         vars.h = cylindrical_to_cartesian_LL(cylindrical_g, x, y, z);
         vars.A = cylindrical_to_cartesian_LL(cylindrical_K, x, y, z);
         vars.shift = cylindrical_to_cartesian_U(cylindrical_shift, x, y, z);
-        vars.lapse = vortex_lapse;
-
 
         using namespace TensorAlgebra;
         // Convert to BSSN vars
@@ -91,14 +90,17 @@ class ComplexStaticVortex
         vars.K = compute_trace(vars.A, h_UU);
         make_trace_free(vars.A, vars.h, h_UU);
         
-        /*
         // Make conformal
         FOR(i, j)
         {
             vars.h[i][j] *= vars.chi;
             vars.A[i][j] *= vars.chi;
         }
-        */
+
+        // use a pre collapsed lapse, could also use analytic one
+        // vars.lapse = vortex_lapse;
+        vars.lapse = pow(vars.chi, 0.5);
+        
         // Populate the variables on the grid
         // NB We stil need to set Gamma^i which is NON ZERO
         // but we do this via a separate class/compute function
@@ -118,6 +120,7 @@ class ComplexStaticVortex
         // Static vortex params - amplitude Amp and winding number n
         double Amp = m_params.Amp;
         double n = m_params.n;
+        double G_Newton = m_params.G_Newton;
 
         // work out where we are on the grid
         data_t x = coords.x;
@@ -125,15 +128,15 @@ class ComplexStaticVortex
         double z = coords.z;
 
         // the radius in xy plane, subject to a floor
-        data_t rho2 = simd_max(x * x + y * y, 1e-4);
+        data_t rho2 = simd_max(x * x + y * y, 1e-12);
         data_t rho = sqrt(rho2);
 
         // Metric in static vortex coordinates, rho, phi and z
         FOR2(i, j) { cylindrical_g[i][j] = 0.0; }
-        // cylindrical_g[0][0] = exp(-4.0*M_PI*m_p.G_Newton*Amp*Amp* pow(rho2,n));        // gamma_rr
-        // cylindrical_g[1][1] = rho2 * exp(-4.0*M_PI*m_p.G_Newton*Amp*Amp* pow(rho2,n)); // gamma_psipsi
-        cylindrical_g[0][0] = 1.0;
-        cylindrical_g[1][1] = rho2;
+        cylindrical_g[0][0] = exp(-4.0*M_PI*G_Newton*Amp*Amp* pow(rho2,n));        // gamma_rr
+        cylindrical_g[1][1] = rho2 * exp(-4.0*M_PI*G_Newton*Amp*Amp* pow(rho2,n)); // gamma_psipsi
+        // cylindrical_g[0][0] = 1.0;        // gamma_rr
+        // cylindrical_g[1][1] = rho2;
         cylindrical_g[2][2] = 1.0;                        // gamma_zz
 
         // Extrinsic curvature. K_ij are 0 since the system is static, and 
