@@ -7,7 +7,7 @@
 #define COMPLEXSCALARFIELD_HPP_
 
 #include "CCZ4Geometry.hpp"
-#include "DefaultPotential.hpp"
+#include "DefaultComplexPotential.hpp"
 #include "DimensionDefinitions.hpp"
 #include "FourthOrderDerivatives.hpp"
 #include "Tensor.hpp"
@@ -30,7 +30,7 @@
      It assumes minimal coupling of the field to gravity.
      \sa MatterCCZ4(), ConstraintsMatter()
 */
-template <class potential_t = DefaultPotential> class ComplexScalarField
+template <class potential_t = DefaultComplexPotential> class ComplexScalarField
 {
   protected:
     //! The local copy of the potential

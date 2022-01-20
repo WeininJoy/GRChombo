@@ -77,10 +77,9 @@ void ComplexScalarField<potential_t>::emtensor_excl_potential(
 // Adds in the RHS for the matter vars
 template <class potential_t>
 template <class data_t, template <typename> class vars_t,
-          template <typename> class diff2_vars_t,
-          template <typename> class rhs_vars_t>
+          template <typename> class diff2_vars_t>
 void ComplexScalarField<potential_t>::add_matter_rhs(
-    rhs_vars_t<data_t> &total_rhs, const vars_t<data_t> &vars,
+    vars_t<data_t> &total_rhs, const vars_t<data_t> &vars,
     const vars_t<Tensor<1, data_t>> &d1,
     const diff2_vars_t<Tensor<2, data_t>> &d2,
     const vars_t<data_t> &advec) const
@@ -104,10 +103,9 @@ void ComplexScalarField<potential_t>::add_matter_rhs(
 // the RHS excluding the potential terms
 template <class potential_t>
 template <class data_t, template <typename> class vars_t,
-          template <typename> class diff2_vars_t,
-          template <typename> class rhs_vars_t>
+          template <typename> class diff2_vars_t>
 void ComplexScalarField<potential_t>::matter_rhs_excl_potential(
-    rhs_vars_t<data_t> &rhs, const vars_t<data_t> &vars,
+    vars_t<data_t> &rhs, const vars_t<data_t> &vars,
     const vars_t<Tensor<1, data_t>> &d1,
     const diff2_vars_t<Tensor<2, data_t>> &d2, const vars_t<data_t> &advec)
 {
@@ -125,9 +123,11 @@ void ComplexScalarField<potential_t>::matter_rhs_excl_potential(
     FOR2(i, j)
     {
         // includes non conformal parts of chris not included in chris_ULL
-        rhs.Pi_Re += h_UU[i][j] * (vars.chi * vars.lapse * d2.phi_Re[i][j] +
+        rhs.Pi_Re += h_UU[i][j] * (-0.5 * d1.chi[j] * vars.lapse * d1.phi_Re[i] +
+                                    vars.chi * vars.lapse * d2.phi_Re[i][j] +
                                     vars.chi * d1.lapse[i] * d1.phi_Re[j]);
-        rhs.Pi_Im += h_UU[i][j] * (vars.chi * vars.lapse * d2.phi_Im[i][j] +
+        rhs.Pi_Im += h_UU[i][j] * (-0.5 * d1.chi[j] * vars.lapse * d1.phi_Im[i] +
+                                    vars.chi * vars.lapse * d2.phi_Im[i][j] +
                                     vars.chi * d1.lapse[i] * d1.phi_Im[j]);
 
         FOR1(k)
