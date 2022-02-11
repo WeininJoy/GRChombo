@@ -6,6 +6,7 @@
 #ifndef INITIALCONDITIONS_HPP_
 #define INITIALCONDITIONS_HPP_
 
+#include <cmath> 
 #include "Cell.hpp"
 #include "Coordinates.hpp"
 #include "MatterCCZ4RHS.hpp"
@@ -46,15 +47,12 @@ class InitialConditions
         const data_t x = coords.x;
         const double y = coords.y;
         const double z = coords.z;
+        data_t rho2 = simd_max(x * x + y * y, 1e-12);
 	
-        data_t phi_Re =   m_params.field_amplitude  * x ;
-        data_t phi_Im =   m_params.field_amplitude  * y ;
+        data_t phi_Re =   m_params.field_amplitude  * x * exp(-rho2 / (0.5*0.5));
+        data_t phi_Im =   m_params.field_amplitude  * y * exp(-rho2 / (0.5*0.5));
         data_t Pi_Re  =   m_params.field_amplitude  * m_params.scalar_mass * y ;
         data_t Pi_Im  = - m_params.field_amplitude  * m_params.scalar_mass * x ;
-        // data_t phi_Re =   0.0;
-        // data_t phi_Im =   0.0;
-        // data_t Pi_Re  =   0.0;
-        // data_t Pi_Im  =   0.0;
 
         // Store the initial values of the variables
         current_cell.store_vars(phi_Re, c_phi_Re);

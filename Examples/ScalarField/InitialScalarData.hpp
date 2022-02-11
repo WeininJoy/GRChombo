@@ -40,12 +40,18 @@ class InitialScalarData
     {
         // where am i?
         Coordinates<data_t> coords(current_cell, m_dx, m_params.center);
+        const data_t x = coords.x;
+        const double y = coords.y;
+        const double z = coords.z;
         data_t rr = coords.get_radius();
         data_t rr2 = rr * rr;
+        data_t rho2 = simd_max(x * x + y * y, 1e-12);
+        data_t rho = sqrt(rho2);
 
         // calculate the field value
-        data_t phi = m_params.amplitude *
-                     (1.0 + 0.01 * rr2 * exp(-pow(rr / m_params.width, 2.0)));
+        // data_t phi = m_params.amplitude *
+        //             (1.0 + 0.01 * rr2 * exp(-pow(rr / m_params.width, 2.0)));
+        data_t phi = m_params.amplitude * x * exp(- pow(rho / m_params.width, 2.0));
 
         // store the vars
         current_cell.store_vars(phi, c_phi);

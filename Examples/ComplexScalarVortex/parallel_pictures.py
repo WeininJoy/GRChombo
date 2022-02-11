@@ -27,9 +27,10 @@ matplotlib.use("Agg")
 # Enable Parallelism
 yt.enable_parallelism()
 
-data_location = "hdf5/ComplexVortex_m0_plt000005.3d.hdf5"  # Data file location
-# Loading dataset
-ts = yt.load(data_location)
+# Index of dataset 
+data_idx_start = 600
+data_idx_end = 601
+data_idx_interval = 1
 
 # Choose what fields you want to plot
 variable_names = ["phi_Re", "Ham"]
@@ -44,7 +45,7 @@ center =  "c"
 #center[0] = 0
 
 # Width of the plot (In simulation units)
-width = 0.16
+width = 1.28
 
 # Orthogonal Axis
 axis = "z"
@@ -83,14 +84,18 @@ def produce_slice_plot(data, variable, axis = axis):
     slc.set_window_size(10)
     slc.save(variable + "/")
 
-# Loop over all files and plot
-if hasattr(ts,'piter'):
-# CASE FOR MULTIPLE DATASETS
-    for i in ts.piter():
-        for name in variable_names:
-            produce_slice_plot(i, name)
-else:
-# CASE FOR SINGLE DATASET (NOT PARALLEL)
-    if yt.is_root():
-        for name in variable_names:
-            produce_slice_plot(ts, name)
+for n in range(data_idx_start, data_idx_end, data_idx_interval):
+    # Load data
+    data_location = "hdf5/ComplexVortex_m0_plt" + str(n).zfill(6) + ".3d.hdf5"  # Data file location
+    ts = yt.load(data_location)
+    # Loop over all files and plot
+    if hasattr(ts,'piter'):
+    # CASE FOR MULTIPLE DATASETS
+        for i in ts.piter():
+            for name in variable_names:
+                produce_slice_plot(i, name)
+    else:
+    # CASE FOR SINGLE DATASET (NOT PARALLEL)
+        if yt.is_root():
+            for name in variable_names:
+                produce_slice_plot(ts, name)

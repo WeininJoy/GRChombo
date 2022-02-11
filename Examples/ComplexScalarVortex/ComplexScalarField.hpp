@@ -105,10 +105,9 @@ template <class potential_t = DefaultComplexPotential> class ComplexScalarField
     //! The function which adds in the RHS for the matter field vars,
     //! including the potential
     template <class data_t, template <typename> class vars_t,
-              template <typename> class diff2_vars_t,
-              template <typename> class rhs_vars_t>
+              template <typename> class diff2_vars_t>
     void add_matter_rhs(
-        rhs_vars_t<data_t> &total_rhs, //!< value of the RHS for all vars
+        vars_t<data_t> &total_rhs, //!< value of the RHS for all vars
         const vars_t<data_t> &vars,    //!< value of the variables
         const vars_t<Tensor<1, data_t>> &d1,       //!< value of the 1st derivs
         const diff2_vars_t<Tensor<2, data_t>> &d2, //!< value of the 2nd derivs
@@ -118,10 +117,9 @@ template <class potential_t = DefaultComplexPotential> class ComplexScalarField
     //! The function which calculates the RHS for the matter field vars
     //! excluding the potential
     template <class data_t, template <typename> class vars_t,
-              template <typename> class diff2_vars_t,
-              template <typename> class rhs_vars_t>
+              template <typename> class diff2_vars_t>
     static void matter_rhs_excl_potential(
-        rhs_vars_t<data_t> &rhs, //!< the value of the RHS terms for the sf vars
+        vars_t<data_t> &rhs, //!< the value of the RHS terms for the sf vars
         const vars_t<data_t> &vars, //!< the values of all the variables
         const vars_t<Tensor<1, data_t>> &d1,       //!< value of the 1st derivs
         const diff2_vars_t<Tensor<2, data_t>> &d2, //!< value of the 2nd derivs

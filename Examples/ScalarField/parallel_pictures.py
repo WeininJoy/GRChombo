@@ -27,12 +27,13 @@ matplotlib.use("Agg")
 # Enable Parallelism
 yt.enable_parallelism()
 
-data_location = "hdf5/ScalarFieldp_000005.3d.hdf5"  # Data file location
 # Loading dataset
+#data_location = "hdf5/ScalarFieldp_000001.3d.hdf5"  # Data file location
+data_location = "hdf5/InitialConditionsFinal.3d.hdf5"
 ts = yt.load(data_location)
 
 # Choose what fields you want to plot
-variable_names = ["phi", "chi"]
+variable_names = ["phi", "Pi"]
 # Choose the center of the plot
 # "c" ... center of the box
 # "max" ... maximum of the plotted field
@@ -44,7 +45,7 @@ center =  "c"
 #center[0] = 0
 
 # Width of the plot (In simulation units)
-width = 200
+width = 10
 
 # Orthogonal Axis
 axis = "z"
@@ -67,6 +68,7 @@ def produce_slice_plot(data, variable, axis = axis):
     # Plot contours (uncomment next line to activate)
     #slc.annotate_contour(variable)
     # Resolution of the fixed resolution mesh used for plotting
+    
     slc.set_buff_size(1024)
     # Color map used for plooting
     slc.set_cmap(field=variable, cmap="dusk")
@@ -82,6 +84,7 @@ def produce_slice_plot(data, variable, axis = axis):
     # Set size of plotted window
     slc.set_window_size(10)
     slc.save(variable + "/")
+
 
 # Loop over all files and plot
 if hasattr(ts,'piter'):

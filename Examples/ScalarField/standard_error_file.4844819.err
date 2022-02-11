@@ -1,0 +1,13 @@
+Parameter: restart_file = InitialConditionsFinal.3d.hdf5 is invalid: file cannot be opened for reading !!!
+Abort(1011435535) on node 11 (rank 11 in comm 0): Fatal error in PMPI_Comm_dup: Other MPI error, error stack:
+PMPI_Comm_dup(179)..................: MPI_Comm_dup(MPI_COMM_WORLD, new_comm=0x7fff16da83b0) failed
+PMPI_Comm_dup(164)..................: 
+MPIR_Comm_dup_impl(57)..............: 
+MPII_Comm_copy_with_info(702).......: 
+MPIR_Get_contextid_sparse_group(498): Failure during collective
+Abort(206129167) on node 10 (rank 10 in comm 0): Fatal error in PMPI_Comm_dup: Other MPI error, error stack:
+PMPI_Comm_dup(179)..................: MPI_Comm_dup(MPI_COMM_WORLD, new_comm=0x7fff2a1124b0) failed
+PMPI_Comm_dup(164)..................: 
+MPIR_Comm_dup_impl(57)..............: 
+MPII_Comm_copy_with_info(702).......: 
+MPIR_Get_contextid_sparse_group(498): Failure during collective

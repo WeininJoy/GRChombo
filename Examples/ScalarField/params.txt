@@ -4,13 +4,13 @@
 #################################################
 # Filesystem parameters
 
-verbosity = 0
+verbosity = 2
 
 # location / naming of output files
 # output_path = "" # Main path for all files. Must exist!
 chk_prefix = ScalarField_
 plot_prefix = ScalarFieldp_
-# restart_file = ScalarField_000000.3d.hdf5
+restart_file = InitialConditionsFinal.3d.hdf5
 
 # HDF5files are written every dt = L/N*dt_multiplier*checkpoint_interval
 checkpoint_interval = 500
@@ -18,7 +18,7 @@ checkpoint_interval = 500
 # set to -1 to never ever print plotfiles
 plot_interval = 1
 num_plot_vars = 2
-plot_vars = chi phi
+plot_vars = phi Ham
 
 # subpaths - specific directories for hdf5, pout, extraction data
 # (these are created at runtime)
@@ -41,15 +41,15 @@ print_progress_only_to_rank_0 = 1
 # Here we decouple the evolution so the scalar evolved on the
 # metric background without backreaction (this avoids the need
 # to solve the constaints)
-G_Newton = 0.0
+G_Newton = 1.0
 
 # Scalar field initial data
 scalar_amplitude = 0.1
-scalar_width = 5.0
-scalar_mass = 0.2
+scalar_width = 1.0
+scalar_mass = 0.0
 
 # Kerr BH data
-kerr_mass = 1.0
+kerr_mass = 0.0
 kerr_spin = 0.0
 
 #################################################
@@ -62,11 +62,11 @@ kerr_spin = 0.0
 # NB - if you have a non-cubic grid, you can specify 'N1' or 'N1_full',
 # 'N2' or 'N2_full' and 'N3' or 'N3_full' ( then dx_coarsest = L/N(max) )
 # NB - the N values need to be multiples of the block_factor
-N_full = 128
-L_full = 256
+N_full = 64
+L_full = 100.0
 
 # Maximum number of times you can regrid above coarsest level
-max_level = 1 # There are (max_level+1) grids, so min is zero
+max_level = 6 # There are (max_level+1) grids, so min is zero
 # 6
 
 # Frequency of regridding at each level and thresholds on the tagging
@@ -75,18 +75,18 @@ max_level = 1 # There are (max_level+1) grids, so min is zero
 # in this example turn off regridding on all levels
 # Level Regridding: 0   1   2   3   4   5
 regrid_interval   = 0   0   0   0   0   0
-# regrid_threshold  = 0.5
+regrid_threshold  = 0.1
 
 regrid_interval = 0 0 0 0 0 0
 
 # Max and min box sizes
-max_box_size = 64 # 16
-min_box_size = 64 # 16
+max_box_size = 16 # 16
+min_box_size = 8 # 16
 
 tag_buffer_size = 0 # this example uses a fixed grid
 
-# grid_buffer_size = 8
-# fill_ratio = 0.7
+grid_buffer_size = 3
+fill_ratio = 0.5
 # num_ghosts = 3
 # center = 256.0 256.0 256.0 # defaults to center of the grid
 
@@ -94,13 +94,13 @@ tag_buffer_size = 0 # this example uses a fixed grid
 # Boundary Conditions parameters
 
 #Periodic directions - 0 = false, 1 = true
-isPeriodic = 0 0 0
+isPeriodic = 0 0 1
 # if not periodic, then specify the boundary type
 # 0 = static, 1 = sommerfeld, 2 = reflective
 # 3 = extrapolating, 4 = mixed
 # (see BoundaryConditions.hpp for details)
-hi_boundary = 4 4 4
-lo_boundary = 2 2 2
+hi_boundary = 3 3 0
+lo_boundary = 3 3 0  
 
 # if reflective boundaries selected, must set
 # parity of all vars (in order given by UserVariables.hpp)
@@ -131,13 +131,13 @@ extrapolating_vars = phi Pi
 
 # dt will be dx*dt_multiplier on each grid level
 dt_multiplier = 0.25
-stop_time = 5.0 # 100
+stop_time = 0.6 # 100
 # max_steps = 4
 
 # Spatial derivative order (only affects CCZ4 RHS)
 max_spatial_derivative_order = 4 # can be 4 or 6
 
-nan_check = 1
+nan_check = 0
 
 # Lapse evolution
 lapse_advec_coeff = 1.0

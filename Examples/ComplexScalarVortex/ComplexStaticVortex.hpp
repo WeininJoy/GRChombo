@@ -133,8 +133,8 @@ class ComplexStaticVortex
 
         // Metric in static vortex coordinates, rho, phi and z
         FOR2(i, j) { cylindrical_g[i][j] = 0.0; }
-        cylindrical_g[0][0] = exp(-4.0*M_PI*G_Newton*Amp*Amp* pow(rho2,n));        // gamma_rr
-        cylindrical_g[1][1] = rho2 * exp(-4.0*M_PI*G_Newton*Amp*Amp* pow(rho2,n)); // gamma_psipsi
+        cylindrical_g[0][0] = exp(-4.0*M_PI*G_Newton*Amp*Amp* pow(rho2,n) *exp(-2.*rho2 / (0.5*0.5)));        // gamma_rr
+        cylindrical_g[1][1] = rho2 * exp(-4.0*M_PI*G_Newton*Amp*Amp* pow(rho2,n) *exp(-2.*rho2 / (0.5*0.5))); // gamma_psipsi
         // cylindrical_g[0][0] = 1.0;        // gamma_rr
         // cylindrical_g[1][1] = rho2;
         cylindrical_g[2][2] = 1.0;                        // gamma_zz
